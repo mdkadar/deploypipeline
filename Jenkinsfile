@@ -24,7 +24,7 @@ pipeline {
         stage ('Build') {
             
             steps {
-                 withMaven(maven: 'mvw') {
+                 withMaven(maven: 'mvn') {
                  git branch: '$BranchName', credentialsId: '$GitCredentials', url: '$GitURL'
                  sh 'mvn package' 
             }
