@@ -7,7 +7,7 @@ pipeline {
 
     string (defaultValue: '', description: '', name: 'GitCredentials', trim: false)
 
-    string (defaultValue: 'https://github.com/mdkadar/java_calc.git', description: '', name: 'GitURL', trim: false)
+    string (defaultValue: '', description: '', name: 'GitURL', trim: false)
 
     string (defaultValue: '', description: 'sshPublisher Configuration name', name: 'configName', trim: false)
 
