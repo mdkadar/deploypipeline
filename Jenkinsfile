@@ -26,8 +26,8 @@ pipeline {
             steps {
                  //withMaven(maven: 'mvn') {
                  git branch: '$BranchName', credentialsId: '$GitCredentials', url: '$GitURL'
-                 bat "mvn clean install"
-                 bat "mvn clean package"
+                 sh 'mvn clean install'
+                 sh 'mvn clean package'
             //}
         }
     }
