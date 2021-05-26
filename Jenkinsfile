@@ -24,10 +24,10 @@ pipeline {
         stage ('Build') {
             
             steps {
-                 withMaven(maven: 'mvn') {
+                 //withMaven(maven: 'mvn') {
                  git branch: '$BranchName', credentialsId: '$GitCredentials', url: '$GitURL'
                  sh 'mvn package' 
-            }
+            //}
         }
     }
     stage('Deploy to Qa') {
