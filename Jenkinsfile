@@ -1,7 +1,7 @@
 pipeline {
     agent any
     parameters {
-    choice (choices: ['ubuntu', 'qa'], description: '', name: 'ENVIRONMENT')
+    choice (choices: ['dev', 'ubuntu'], description: '', name: 'ENVIRONMENT')
 
     string (defaultValue: 'master', description: '', name: 'BranchName', trim: false)
 
@@ -19,26 +19,14 @@ pipeline {
 
     }
 
-    stages {
-       
-        stage ('Build') {
-            
-            steps {
-                 //withMaven(maven: 'mvn') {
-                 git branch: '$BranchName', credentialsId: '$GitCredentials', url: '$GitURL'
-                 bat "mvn clean install"
-                 bat "mvn clean package"
-            //}
-        }
-    }
-               
-            stage('Deploy to ubuntu') {
+     stage('Deploy to ubuntu') {
             when {
                 expression { 
                    return params.ENVIRONMENT == 'ubuntu'
                 }
             }
             steps {
+                    
                     sshPublisher(publishers: [sshPublisherDesc(configName: '$configName', 
                     transfers: [sshTransfer(cleanRemote: false, excludes: '', execCommand: '', 
                     execTimeout: 120000, flatten: false, 
@@ -47,28 +35,19 @@ pipeline {
                     removePrefix: '$removePrefix', 
                     sourceFiles: '$sourceFiles')], 
                     usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: false)])
-                    
-                    sh """
-                    echo "deploy to dev"
-                    """
                 }
             }
-        stage('Deploy to qa') {
+            
+            stage('Deploy to Dev') {
             when {
                 expression { 
-                   return params.ENVIRONMENT == 'qa'
+                   return params.ENVIRONMENT == 'dev'
                 }
             }
             steps {
-                    
-                    sshPublisher(publishers: [sshPublisherDesc(configName: '$configName', 
-                    transfers: [sshTransfer(cleanRemote: false, excludes: '', execCommand: '', 
-                    execTimeout: 120000, flatten: false, 
-                    makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+', 
-                    remoteDirectory: '$remoteDirectory', remoteDirectorySDF: false, 
-                    removePrefix: '$removePrefix', 
-                    sourceFiles: '$sourceFiles')], 
-                    usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: false)])
+                    sh """
+                    echo "deploy to dev"
+                    """
                 }
             }
    }
