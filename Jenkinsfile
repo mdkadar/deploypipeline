@@ -24,9 +24,10 @@ pipeline {
         stage ('Build') {
             
             steps {
-                 withMaven(maven: 'mvw') {
+                 //withMaven(maven: 'mvw') {
                  git branch: '$BranchName', credentialsId: '$GitCredentials', url: '$GitURL'
-                 sh 'mvn package' 
+                 bat "mvn clean install"
+                 bat "mvn clean package"
             }
         }
     }
