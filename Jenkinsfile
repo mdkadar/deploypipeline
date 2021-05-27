@@ -18,6 +18,18 @@ pipeline {
     string (defaultValue: '', description: '', name: 'remoteDirectory', trim: false)
 
     }
+    
+    stages {
+       
+        stage ('Build') {
+            
+            steps {
+                 withMaven(maven: 'mvw') {
+                 git branch: '$BranchName', credentialsId: '$GitCredentials', url: '$GitURL'
+                 sh 'mvn package' 
+            }
+        }
+    }
 
      stage('Deploy to ubuntu') {
             when {
