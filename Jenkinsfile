@@ -28,7 +28,7 @@ pipeline {
                  git branch: '$BranchName', credentialsId: '$GitCredentials', url: '$GitURL'
                  bat "mvn clean install"
                  bat "mvn clean package"
-            }
+           // }
         }
     }
 
