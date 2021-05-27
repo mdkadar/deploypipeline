@@ -39,6 +39,15 @@ pipeline {
                 }
             }
             steps {
+                    sshPublisher(publishers: [sshPublisherDesc(configName: '$configName', 
+                    transfers: [sshTransfer(cleanRemote: false, excludes: '', execCommand: '', 
+                    execTimeout: 120000, flatten: false, 
+                    makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+', 
+                    remoteDirectory: '$remoteDirectory', remoteDirectorySDF: false, 
+                    removePrefix: '$removePrefix', 
+                    sourceFiles: '$sourceFiles')], 
+                    usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: false)])
+                    
                     sh """
                     echo "deploy to dev"
                     """
