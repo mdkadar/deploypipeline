@@ -31,7 +31,20 @@ pipeline {
             //}
         }
     }
-    stage('Deploy to qa') {
+               
+            stage('Deploy to ubuntu') {
+            when {
+                expression { 
+                   return params.ENVIRONMENT == 'ubuntu'
+                }
+            }
+            steps {
+                    sh """
+                    echo "deploy to dev"
+                    """
+                }
+            }
+        stage('Deploy to qa') {
             when {
                 expression { 
                    return params.ENVIRONMENT == 'qa'
@@ -47,19 +60,6 @@ pipeline {
                     removePrefix: '$removePrefix', 
                     sourceFiles: '$sourceFiles')], 
                     usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: false)])
-                }
-            }
-            
-            stage('Deploy to ubuntu') {
-            when {
-                expression { 
-                   return params.ENVIRONMENT == 'ubuntu'
-                }
-            }
-            steps {
-                    sh """
-                    echo "deploy to dev"
-                    """
                 }
             }
    }
