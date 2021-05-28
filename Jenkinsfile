@@ -1,7 +1,7 @@
 pipeline {
     agent any
     parameters {
-    choice (choices: ['ubuntu', 'ubuntu'], description: '', name: 'ENVIRONMENT')
+    choice (choices: ['dev', 'ubuntu'], description: '', name: 'ENVIRONMENT')
 
     string (defaultValue: 'master', description: '', name: 'BranchName', trim: false)
 
@@ -50,7 +50,7 @@ pipeline {
                     usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: false)])
                 }
             }
-            
+            /*
             stage('Deploy to ubuntu') {
             when {
                 expression { 
@@ -62,6 +62,6 @@ pipeline {
                     echo "deploy to ubuntu"
                     """
                 }
-            }
+            }*/
    }
 }
