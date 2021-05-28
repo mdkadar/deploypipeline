@@ -1,7 +1,7 @@
 pipeline {
     agent any
     parameters {
-    choice (choices: ['dev', 'ubuntu'], description: '', name: 'ENVIRONMENT')
+    choice (choices: ['ubuntu', 'ubuntu'], description: '', name: 'ENVIRONMENT')
 
     string (defaultValue: 'master', description: '', name: 'BranchName', trim: false)
 
@@ -51,15 +51,15 @@ pipeline {
                 }
             }
             
-            stage('Deploy to Dev') {
+            stage('Deploy to ubuntu') {
             when {
                 expression { 
-                   return params.ENVIRONMENT == 'dev'
+                   return params.ENVIRONMENT == 'ubuntu'
                 }
             }
             steps {
                     sh """
-                    echo "deploy to dev"
+                    echo "deploy to ubuntu"
                     """
                 }
             }
