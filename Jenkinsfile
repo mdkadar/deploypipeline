@@ -62,6 +62,7 @@ pipeline {
                     echo "deploy to ubuntu"
                     """
                 }
-            }*/
+            }
+            */
    }
 }
